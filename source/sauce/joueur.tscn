@@ -1,0 +1,67 @@
+[gd_scene load_steps=11 format=3 uid="uid://df7qipcj12mwo"]
+
+[ext_resource type="Texture2D" uid="uid://c0gc7xqhsj3x4" path="res://images/player/Idle/Idle_idle_0.png" id="1_78wce"]
+[ext_resource type="Texture2D" uid="uid://becwumvd8n2cd" path="res://images/player/Idle/Idle_idle_1.png" id="2_hecxh"]
+[ext_resource type="Texture2D" uid="uid://bvm580l1a7tff" path="res://images/player/Idle/Idle_idle_2.png" id="3_7tr1j"]
+[ext_resource type="Texture2D" uid="uid://bhi36unwgsw" path="res://images/player/Idle/Idle_idle_3.png" id="4_8ahls"]
+[ext_resource type="Texture2D" uid="uid://c06a3x1bqhva5" path="res://images/player/Idle/Idle_idle_4.png" id="5_kdtqs"]
+[ext_resource type="Texture2D" uid="uid://cpapsxq6ckt2" path="res://images/player/Gun/Main Gun/main gun_Gun_0.png" id="6_31m2h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jrsf8"]
+radius = 5.0
+
+[sub_resource type="Animation" id="Animation_qendh"]
+resource_name = "ideal"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteBody:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("1_78wce"), ExtResource("2_hecxh"), ExtResource("3_7tr1j"), ExtResource("4_8ahls"), ExtResource("5_kdtqs")]
+}
+
+[sub_resource type="Animation" id="Animation_08j0j"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteBody:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_78wce")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8nag6"]
+_data = {
+"RESET": SubResource("Animation_08j0j"),
+"ideal": SubResource("Animation_qendh")
+}
+
+[node name="Joueur" type="CharacterBody2D"]
+
+[node name="CollisionShapeBody" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jrsf8")
+
+[node name="SpriteBody" type="Sprite2D" parent="."]
+texture = ExtResource("1_78wce")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8nag6")
+}
+autoplay = "ideal"
+
+[node name="SpriteGun" type="Sprite2D" parent="."]
+texture = ExtResource("6_31m2h")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
